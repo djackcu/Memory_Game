@@ -2,7 +2,26 @@ const memoryGame = {
     arrayCards: [],
     activeCards: 0,
     solvedCards: [],
+    nameCards: ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'],
+    moves: 0,
     // Shuffle function from http://stackoverflow.com/a/2450976
+    initGame() {
+        let newCards = [];
+        if (this.activeCards != 0) {
+            this.activeCards = 0;
+        }
+        if (this.solvedCards.length != 0) {
+            this.solvedCards.splice(0, this.solvedCards.length);
+        }
+        for (let card of this.nameCards) {
+            newCards.push(card);
+            newCards.push(card);
+        }
+        this.arrayCards = newCards;
+        this.shuffleCards();
+        this.moves = 0;
+    },
+
     shuffleCards() {
         let currentIndex = this.arrayCards.length,
             temporaryValue, randomIndex;
@@ -16,40 +35,27 @@ const memoryGame = {
         }
     },
 
-    initGame() {
-        let num = 8;
-        let newCards = [];
-        if (this.activeCards != 0) {
+    playCard(card) {
+        if (typeof(this.solvedCards.find(x => x == card)) != 'undefined') {
+            return 'solved';
+        } else if (this.activeCards == 0) {
+            this.activeCards = card;
+            this.moves++;
+            return 'activated';
+        } else if (this.activeCards == card) {
+            this.solvedCards.push(card);
             this.activeCards = 0;
-        }
-        if (this.solvedCards.length != 0) {
-            this.solvedCards.splice(0, this.solvedCards.length);
-        }
-        for (let i = 1; i <= num; i++) {
-            newCards.push(i);
-            newCards.push(i);
-        }
-        this.arrayCards = newCards;
-        this.shuffleCards();
-    },
-
-    isPair(card) {
-        console.log(card);
-        if (this.activeCards == 0) {
-            this.activeCards=card;
+            this.moves++;
+            return 'matched';
         } else {
-            if (this.activeCards == card) {
-                this.solvedCards.push(card);
-                this.activeCards=0;
-                this.arrayCards = this.arrayCards.map(x => (x == card ? 0 : x));
-            } else {
-                this.activeCards=0;
-            }
+            this.activeCards = 0;
+            this.moves++;
+            return 'deactivated';
         }
     },
 
     isEndGame() {
-        return typeof(this.arrayCards.find(x => x > 0)) == 'undefined';
+        return this.solvedCards.length == this.nameCards.length;
     }
 };
 
