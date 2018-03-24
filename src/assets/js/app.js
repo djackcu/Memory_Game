@@ -1,14 +1,14 @@
 const memoryGame = {
     arrayCards: [],
-    activeCards: 0,
+    activeCard: false,
     solvedCards: [],
     nameCards: ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'],
     moves: 0,
     // Shuffle function from http://stackoverflow.com/a/2450976
     initGame() {
         let newCards = [];
-        if (this.activeCards != 0) {
-            this.activeCards = 0;
+        if (!this.activeCard) {
+            this.activeCard = false;
         }
         if (this.solvedCards.length != 0) {
             this.solvedCards.splice(0, this.solvedCards.length);
@@ -35,20 +35,20 @@ const memoryGame = {
         }
     },
 
-    playCard(card) {
-        if (typeof(this.solvedCards.find(x => x == card)) != 'undefined') {
-            return 'solved';
-        } else if (this.activeCards == 0) {
-            this.activeCards = card;
+    playCard(cardId) {
+        if (typeof(this.solvedCards.find(x => x == cardId)) != 'undefined' || this.activeCard == cardId) {
+            return 'disabled';
+        } else if (!this.activeCard) {
+            this.activeCard = cardId;
             this.moves++;
             return 'activated';
-        } else if (this.activeCards == card) {
-            this.solvedCards.push(card);
-            this.activeCards = 0;
+        } else if (this.arrayCards[this.activeCard] == this.arrayCards[cardId]) {
+            this.solvedCards.push(this.activeCard,cardId);
+            this.activeCard = false;
             this.moves++;
             return 'matched';
         } else {
-            this.activeCards = 0;
+            this.activeCard = false;
             this.moves++;
             return 'deactivated';
         }
@@ -59,12 +59,12 @@ const memoryGame = {
     }
 };
 
-
 function printAll() {
-    console.log(memoryGame.arrayCards);
-    console.log(memoryGame.activeCards);
-    console.log(memoryGame.solvedCards);
-    console.log(memoryGame.isEndGame());
+    console.log(my.memoryGame.arrayCards);
+    console.log(my.memoryGame.activeCard);
+    console.log(my.memoryGame.solvedCards);
+    console.log(my.memoryGame.moves);
+    console.log(my.memoryGame.isEndGame());
 }
 
 /*
