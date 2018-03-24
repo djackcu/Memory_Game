@@ -4,7 +4,7 @@ const memoryGame = {
     solvedCards: [],
     nameCards: ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'],
     moves: 0,
-    // Shuffle function from http://stackoverflow.com/a/2450976
+
     initGame() {
         let newCards = [];
         if (!this.activeCard) {
@@ -21,7 +21,7 @@ const memoryGame = {
         this.shuffleCards();
         this.moves = 0;
     },
-
+    // Shuffle function from http://stackoverflow.com/a/2450976
     shuffleCards() {
         let currentIndex = this.arrayCards.length,
             temporaryValue, randomIndex;
@@ -43,7 +43,7 @@ const memoryGame = {
             this.moves++;
             return 'activated';
         } else if (this.arrayCards[this.activeCard] == this.arrayCards[cardId]) {
-            this.solvedCards.push(this.activeCard,cardId);
+            this.solvedCards.push(this.activeCard, cardId);
             this.activeCard = false;
             this.moves++;
             return 'matched';
@@ -55,17 +55,39 @@ const memoryGame = {
     },
 
     isEndGame() {
-        return this.solvedCards.length == this.nameCards.length;
+        return this.solvedCards.length == this.arrayCards.length;
     }
 };
 
-function printAll() {
-    console.log(my.memoryGame.arrayCards);
-    console.log(my.memoryGame.activeCard);
-    console.log(my.memoryGame.solvedCards);
-    console.log(my.memoryGame.moves);
-    console.log(my.memoryGame.isEndGame());
+function createGame() {
+    const cardsDeck = document.createDocumentFragment();
+    memoryGame.initGame();
+    for (var i = 0; i < memoryGame.arrayCards.length; i++) {
+        const newCard = document.createElement('li');
+        newCard.classList.add('card');
+        newCard.classList.add('open','show');
+        newCard.id = i;
+        const newIco = document.createElement('i');
+        newIco.classList.add('fa');
+        newIco.classList.add(memoryGame.arrayCards[i]);
+        newCard.appendChild(newIco);
+        cardsDeck.appendChild(newCard);
+    }
+    console.log(cardsDeck);
+    let deck = document.getElementsByClassName('deck');
+    //deck.appenChild(cardsDeck);
+    console.log(deck);
+    //deck.appendChild(cardsDeck);
 }
+
+function printAll() {
+    console.log(memoryGame.arrayCards);
+    console.log(memoryGame.activeCard);
+    console.log(memoryGame.solvedCards);
+    console.log(memoryGame.moves);
+    console.log(memoryGame.isEndGame());
+}
+
 
 /*
  * Create a list that holds all of your cards
