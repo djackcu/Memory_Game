@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Matching Game</title>
@@ -8,27 +9,23 @@
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
-<body>
 
+<body>
     <div class="container">
         <header>
             <h1>Matching Game</h1>
         </header>
-
         <section class="score-panel">
-        	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star-o"></i></li>
-        	</ul>
-
-        	<span class="moves">3</span> Moves
-
+            <ul class="stars">
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star-o"></i></li>
+            </ul>
+            <span class="moves">3</span> Moves
             <div class="restart">
-        		<i class="fa fa-repeat"></i>
-        	</div>
+                <i class="fa fa-repeat"></i>
+            </div>
         </section>
-
         <ul class="deck">
             <li class="card">
                 <i class="fa fa-diamond"></i>
@@ -80,7 +77,13 @@
             </li>
         </ul>
     </div>
-
+    <div class="modal-back hide"></div>
+    <div class="modal hide" id="modal">
+        <div class="end-score"></div>
+        <div class="close-modal">Play again!</i>
+        </div>
+    </div>
     <script src="assets/js/app.js"></script>
 </body>
+
 </html>

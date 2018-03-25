@@ -50,18 +50,18 @@ const memoryGame = {
         } else if (this.activeCard == -1) {
             let actCard = this.activeCard = cardId;
             this.moves++;
-            return ['activated', this.moves, actCard];
+            return ['activated', actCard];
         } else if (this.arrayCards[this.activeCard] == this.arrayCards[cardId]) {
             this.solvedCards.push(this.activeCard, cardId);
             let actCard = this.activeCard;
             this.activeCard = -1;
             this.moves++;
-            return ['matched', this.moves, actCard];
+            return ['matched', actCard];
         } else {
             let actCard = this.activeCard;
             this.activeCard = -1;
             this.moves++;
-            return ['deactivated', this.moves, actCard];
+            return ['deactivated', actCard];
         }
     },
     //Check if the game is end, return true or false
@@ -87,32 +87,35 @@ function clickOnCard(evt) {
                 break;
             case 'matched':
                 targetElement.classList.add('match');
-                document.getElementById(actionCard[2]).classList.replace('show', 'match');
-                console.log(actionCard);
-                console.log(document.getElementById(actionCard[2]));
+                document.getElementById(actionCard[1]).classList.replace('show', 'match');
                 break;
             case 'deactivated':
                 targetElement.classList.add('show');
                 setTimeout(function closeCard() {
-                    targetElement.classList.remove('show', 'open','close');
-                    document.getElementById(actionCard[2]).classList.remove('show', 'open','close');
+                    targetElement.classList.remove('show', 'open', 'close');
+                    document.getElementById(actionCard[1]).classList.remove('show', 'open', 'close');
                 }, 1000);
                 targetElement.classList.add('close');
-                document.getElementById(actionCard[2]).classList.add('close');
-
-                console.log(actionCard);
-                console.log(document.getElementById(actionCard[2]));
+                document.getElementById(actionCard[1]).classList.add('close');
                 break;
             default:
                 console.log(actionCard);
-
         }
         document.querySelector('.moves').textContent = memoryGame.moves;
+        if (memoryGame.isEndGame()) {
+            const modalBlock = document.querySelector('.modal');
+            modalBlock.classList.remove('hide');
+        }
     } else {
         console.log('no target');
     }
 }
 
+function restartGame() {
+    document.querySelector('.modal').classList.add('hide');
+    document.querySelector('.modal-back').classList.add('hide');
+    createGame();
+}
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -139,7 +142,8 @@ function createGame() {
     let deck = document.querySelector('.deck');
     deck.parentNode.replaceChild(cardsDeck, deck);
     document.querySelector('.moves').textContent = memoryGame.moves;
-    document.querySelector('.restart').addEventListener('click',createGame);
+    document.querySelector('.restart').addEventListener('click', createGame);
+    document.querySelector('.close-modal').addEventListener('click', restartGame);
 }
 
 /*
