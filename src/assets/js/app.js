@@ -4,15 +4,15 @@
 
 const memoryGame = {
     arrayCards: [],
-    activeCard: false,
+    activeCard: -1,
     solvedCards: [],
     nameCards: ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'],
     moves: 0,
 
     initGame() {
         let newCards = [];
-        if (!this.activeCard) {
-            this.activeCard = false;
+        if (this.activeCard != -1) {
+            this.activeCard = -1;
         }
         if (this.solvedCards.length != 0) {
             this.solvedCards.splice(0, this.solvedCards.length);
@@ -46,20 +46,22 @@ const memoryGame = {
      */
     playCard(cardId) {
         if (typeof(this.solvedCards.find(x => x == cardId)) != 'undefined' || this.activeCard == cardId) {
-            return 'disabled';
-        } else if (!this.activeCard) {
-            this.activeCard = cardId;
+            return ['disabled'];
+        } else if (this.activeCard == -1) {
+            let actCard = this.activeCard = cardId;
             this.moves++;
-            return 'activated';
+            return ['activated', this.moves, actCard];
         } else if (this.arrayCards[this.activeCard] == this.arrayCards[cardId]) {
             this.solvedCards.push(this.activeCard, cardId);
-            this.activeCard = false;
+            let actCard = this.activeCard;
+            this.activeCard = -1;
             this.moves++;
-            return 'matched';
+            return ['matched', this.moves, actCard];
         } else {
-            this.activeCard = false;
+            let actCard = this.activeCard;
+            this.activeCard = -1;
             this.moves++;
-            return 'deactivated';
+            return ['deactivated', this.moves, actCard];
         }
     },
     //Check if the game is end, return true or false
@@ -77,20 +79,29 @@ function clickOnCard(evt) {
     }
     if (targetElement) {
         let actionCard = memoryGame.playCard(targetElement.id);
-        targetElement.classList.toggle('show');
-        switch (actionCard) {
+        targetElement.classList.add('open');
+        switch (actionCard[0]) {
             case 'activated':
+                targetElement.classList.add('show');
                 console.log(actionCard);
                 break;
             case 'matched':
-                //targetElement.classList.replace('show','match')
-                //document.getElementsByClassName('show')[0].classList.replace('show','match');
+                targetElement.classList.add('match');
+                document.getElementById(actionCard[2]).classList.replace('show', 'match');
                 console.log(actionCard);
+                console.log(document.getElementById(actionCard[2]));
                 break;
             case 'deactivated':
-                //targetElement.classList.toggle('show');
-                //document.getElementsByClassName('show')[0].classList.toggle('show');
+                targetElement.classList.add('show');
+                setTimeout(function closeCard() {
+                    targetElement.classList.remove('show', 'open','close');
+                    document.getElementById(actionCard[2]).classList.remove('show', 'open','close');
+                }, 1000);
+                targetElement.classList.add('close');
+                document.getElementById(actionCard[2]).classList.add('close');
+
                 console.log(actionCard);
+                console.log(document.getElementById(actionCard[2]));
                 break;
             default:
                 console.log(actionCard);
@@ -118,7 +129,6 @@ function createGame() {
     for (var i = 0; i < memoryGame.arrayCards.length; i++) {
         const newCard = document.createElement('li');
         newCard.classList.add('card');
-        newCard.classList.add('open');
         newCard.id = i;
         const newIco = document.createElement('i');
         newIco.classList.add('fa', memoryGame.arrayCards[i]);

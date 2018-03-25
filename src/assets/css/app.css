@@ -70,6 +70,9 @@ h1 {
     background: #02b3e4;
     cursor: default;
 }
+.deck .card.close {
+    background: #f00;
+}
 
 .deck .card.show {
     font-size: 33px;
