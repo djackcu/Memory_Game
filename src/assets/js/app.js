@@ -18,7 +18,7 @@ const memoryGame = {
             this.solvedCards.splice(0, this.solvedCards.length);
         }
         for (let card of this.nameCards) {
-            newCards.push(card,card);
+            newCards.push(card, card);
         }
         this.arrayCards = newCards;
         this.shuffleCards();
@@ -37,13 +37,13 @@ const memoryGame = {
             this.arrayCards[randomIndex] = temporaryValue;
         }
     },
-/*
-* Method to compare and return the keywords
-* - 'disabled'(is already open or matched)
-* - 'activated'(is the first element activate to match)
-* - 'matched'(is matched with a previous card)
-* - 'deactivated'(not match with a previous card)
-*/
+    /*
+     * Method to compare and return the keywords
+     * - 'disabled'(is already open or matched)
+     * - 'activated'(is the first element activate to match)
+     * - 'matched'(is matched with a previous card)
+     * - 'deactivated'(not match with a previous card)
+     */
     playCard(cardId) {
         if (typeof(this.solvedCards.find(x => x == cardId)) != 'undefined' || this.activeCard == cardId) {
             return 'disabled';
@@ -62,11 +62,25 @@ const memoryGame = {
             return 'deactivated';
         }
     },
-//Check if the game is end, return true or false
+    //Check if the game is end, return true or false
     isEndGame() {
         return this.solvedCards.length == this.arrayCards.length;
     }
 };
+
+function clickOnCard(evt) {
+    let targetId = false;
+    if (evt.target.nodeName.toLowerCase() === 'li') {
+        targetId = evt.target.id;
+    }else if(evt.target.nodeName.toLowerCase() === 'i'){
+        targetId = evt.target.parentNode.id;
+    }
+    if (targetId) {
+        console.log(targetId);
+    } else {
+        console.log('no target');
+    }
+}
 
 /*
  * Display the cards on the page
@@ -80,6 +94,7 @@ function createGame() {
     memoryGame.initGame();
     const newCardList = document.createElement('ul');
     newCardList.classList.add('deck');
+    newCardList.addEventListener('click',clickOnCard);
     for (var i = 0; i < memoryGame.arrayCards.length; i++) {
         const newCard = document.createElement('li');
         newCard.classList.add('card');
