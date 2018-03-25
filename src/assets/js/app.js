@@ -1,3 +1,7 @@
+/*
+ * Create a object that holds all cards
+ */
+
 const memoryGame = {
     arrayCards: [],
     activeCard: false,
@@ -14,8 +18,7 @@ const memoryGame = {
             this.solvedCards.splice(0, this.solvedCards.length);
         }
         for (let card of this.nameCards) {
-            newCards.push(card);
-            newCards.push(card);
+            newCards.push(card,card);
         }
         this.arrayCards = newCards;
         this.shuffleCards();
@@ -34,7 +37,13 @@ const memoryGame = {
             this.arrayCards[randomIndex] = temporaryValue;
         }
     },
-
+/*
+* Method to compare and return the keywords
+* - 'disabled'(is already open or matched)
+* - 'activated'(is the first element activate to match)
+* - 'matched'(is matched with a previous card)
+* - 'deactivated'(not match with a previous card)
+*/
     playCard(cardId) {
         if (typeof(this.solvedCards.find(x => x == cardId)) != 'undefined' || this.activeCard == cardId) {
             return 'disabled';
@@ -53,46 +62,11 @@ const memoryGame = {
             return 'deactivated';
         }
     },
-
+//Check if the game is end, return true or false
     isEndGame() {
         return this.solvedCards.length == this.arrayCards.length;
     }
 };
-
-function createGame() {
-    const cardsDeck = document.createDocumentFragment();
-    memoryGame.initGame();
-    for (var i = 0; i < memoryGame.arrayCards.length; i++) {
-        const newCard = document.createElement('li');
-        newCard.classList.add('card');
-        newCard.classList.add('open','show');
-        newCard.id = i;
-        const newIco = document.createElement('i');
-        newIco.classList.add('fa');
-        newIco.classList.add(memoryGame.arrayCards[i]);
-        newCard.appendChild(newIco);
-        cardsDeck.appendChild(newCard);
-    }
-    console.log(cardsDeck);
-    let deck = document.getElementsByClassName('deck');
-    //deck.appenChild(cardsDeck);
-    console.log(deck);
-    //deck.appendChild(cardsDeck);
-}
-
-function printAll() {
-    console.log(memoryGame.arrayCards);
-    console.log(memoryGame.activeCard);
-    console.log(memoryGame.solvedCards);
-    console.log(memoryGame.moves);
-    console.log(memoryGame.isEndGame());
-}
-
-
-/*
- * Create a list that holds all of your cards
- */
-
 
 /*
  * Display the cards on the page
@@ -101,7 +75,25 @@ function printAll() {
  *   - add each card's HTML to the page
  */
 
-// Shuffle function from http://stackoverflow.com/a/2450976
+function createGame() {
+    const cardsDeck = document.createDocumentFragment();
+    memoryGame.initGame();
+    const newCardList = document.createElement('ul');
+    newCardList.classList.add('deck');
+    for (var i = 0; i < memoryGame.arrayCards.length; i++) {
+        const newCard = document.createElement('li');
+        newCard.classList.add('card');
+        newCard.classList.add('open', 'show');
+        newCard.id = i;
+        const newIco = document.createElement('i');
+        newIco.classList.add('fa', memoryGame.arrayCards[i]);
+        newCard.appendChild(newIco);
+        newCardList.appendChild(newCard);
+    }
+    cardsDeck.appendChild(newCardList)
+    let deck = document.querySelector('.deck');
+    deck.parentNode.replaceChild(cardsDeck, deck);
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
