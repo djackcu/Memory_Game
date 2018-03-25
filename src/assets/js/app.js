@@ -69,14 +69,34 @@ const memoryGame = {
 };
 
 function clickOnCard(evt) {
-    let targetId = false;
+    let targetElement = false;
     if (evt.target.nodeName.toLowerCase() === 'li') {
-        targetId = evt.target.id;
-    }else if(evt.target.nodeName.toLowerCase() === 'i'){
-        targetId = evt.target.parentNode.id;
+        targetElement = evt.target;
+    } else if (evt.target.nodeName.toLowerCase() === 'i') {
+        targetElement = evt.target.parentNode;
     }
-    if (targetId) {
-        console.log(targetId);
+    if (targetElement) {
+        let actionCard = memoryGame.playCard(targetElement.id);
+        targetElement.classList.toggle('show');
+        switch (actionCard) {
+            case 'activated':
+                console.log(actionCard);
+                break;
+            case 'matched':
+                //targetElement.classList.replace('show','match')
+                //document.getElementsByClassName('show')[0].classList.replace('show','match');
+                console.log(actionCard);
+                break;
+            case 'deactivated':
+                //targetElement.classList.toggle('show');
+                //document.getElementsByClassName('show')[0].classList.toggle('show');
+                console.log(actionCard);
+                break;
+            default:
+                console.log(actionCard);
+
+        }
+
     } else {
         console.log('no target');
     }
@@ -94,11 +114,11 @@ function createGame() {
     memoryGame.initGame();
     const newCardList = document.createElement('ul');
     newCardList.classList.add('deck');
-    newCardList.addEventListener('click',clickOnCard);
+    newCardList.addEventListener('click', clickOnCard);
     for (var i = 0; i < memoryGame.arrayCards.length; i++) {
         const newCard = document.createElement('li');
         newCard.classList.add('card');
-        newCard.classList.add('open', 'show');
+        newCard.classList.add('open');
         newCard.id = i;
         const newIco = document.createElement('i');
         newIco.classList.add('fa', memoryGame.arrayCards[i]);
