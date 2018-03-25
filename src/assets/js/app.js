@@ -103,8 +103,8 @@ function clickOnCard(evt) {
         }
         document.querySelector('.moves').textContent = memoryGame.moves;
         if (memoryGame.isEndGame()) {
-            const modalBlock = document.querySelector('.modal');
-            modalBlock.classList.remove('hide');
+            document.querySelector('.modal').classList.remove('hide');
+            document.querySelector('.modal-back').classList.remove('hide');
         }
     } else {
         console.log('no target');

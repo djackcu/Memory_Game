@@ -119,8 +119,8 @@
         justify-content: center;
         flex-flow: row;
         position: fixed;
-        padding-bottom: 10px;
-        top: 50%;
+        padding: 32px;
+        top: 300px;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 600px;
