@@ -65,12 +65,13 @@ const memoryGame = {
             return ['deactivated', actCard];
         }
     },
+
     checkScore() {
         let score = (this.moves - 16) / 2;
         this.stars = (score <= 3) ? 3 :
-            (score >= 6 && score < 9) ? 1 :
-            (score > 9) ? 0 :
-            2;
+            (score > 3 && score <= 6) ? 2 :
+            (score > 6 && score <= 9) ? 1 :
+            0;
     },
 
     //Check if the game is end, return true or false
@@ -123,6 +124,15 @@ function clickOnCard(evt) {
  */
 function updateScore() {
     document.querySelector('.moves').textContent = memoryGame.moves;
+    memoryGame.checkScore();
+    let starsScore = document.querySelectorAll('.stars>li>i');
+    for (var i = 0; i < 3; i++) {
+        starsScore[i].classList.add('fa-star-o');
+    }
+    for (var i = 0; i < memoryGame.stars; i++) {
+        starsScore[i].classList.replace('fa-star-o', 'fa-star');
+    }
+
 }
 
 /*
