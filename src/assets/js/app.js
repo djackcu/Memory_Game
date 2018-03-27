@@ -210,6 +210,9 @@ function createDeck() {
 function restartGame() {
     document.querySelector('.modal').classList.add('hide');
     document.querySelector('.modal-back').classList.add('hide');
+    /* const panelScore = document.querySelector('.score-panel');
+     const scorePanel = document.querySelectorAll('.panel');
+     panelScore.appendChild(scorePanel);*/
     createDeck();
 }
 
