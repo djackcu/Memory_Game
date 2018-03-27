@@ -38,6 +38,7 @@ const memoryGame = {
             this.arrayCards[randomIndex] = temporaryValue;
         }
     },
+
     /*
      * Method to compare and return the keywords
      * - 'disabled'(is already open or matched)
@@ -45,6 +46,7 @@ const memoryGame = {
      * - 'matched'(is matched with a previous card)
      * - 'deactivated'(not match with a previous card)
      */
+
     playCard(cardId) {
         if (typeof(this.solvedCards.find(x => x == cardId)) != 'undefined' || this.activeCard == cardId) {
             return ['disabled'];
@@ -75,10 +77,22 @@ const memoryGame = {
     },
 
     //Check if the game is end, return true or false
+
     isEndGame() {
         return this.solvedCards.length == this.arrayCards.length;
     }
 };
+
+/*
+ * set up the event listener for a card. If a card is clicked:
+ *  - display the card's symbol (put this functionality in another function that you call from this one)
+ *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+ *  - if the list already has another card, check to see if the two cards match
+ *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+ *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+ *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+ *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ */
 
 function clickOnCard(evt) {
     let targetElement;
@@ -111,17 +125,15 @@ function clickOnCard(evt) {
         }
         updateScore();
         if (memoryGame.isEndGame()) {
-            document.querySelector('.modal').classList.remove('hide');
-            document.querySelector('.modal-back').classList.remove('hide');
-            clearInterval(timerId);
+            endGame();
         }
-    } else {
-        console.log('no target');
     }
 }
+
 /*
  * Update score
  */
+
 function updateScore() {
     document.querySelector('.moves').textContent = memoryGame.moves;
     memoryGame.checkScore();
@@ -138,6 +150,7 @@ function updateScore() {
 /*
  *   Display time
  */
+
 let startingTime,
     endingTime,
     timerId;
@@ -166,6 +179,7 @@ function updateTime() {
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
 function createDeck() {
     const cardsDeck = document.createDocumentFragment();
     memoryGame.initGame();
@@ -188,29 +202,30 @@ function createDeck() {
     startingTime = performance.now();
     timerId = setInterval(updateTime, 1000);
 }
+
 /*
- *   Start and restart game
+ *   Start, end and restart game
  */
+
 function restartGame() {
     document.querySelector('.modal').classList.add('hide');
     document.querySelector('.modal-back').classList.add('hide');
     createDeck();
 }
 
+function endGame() {
+    clearInterval(timerId);
+    document.querySelector('.modal').classList.remove('hide');
+    document.querySelector('.modal-back').classList.remove('hide');
+    /* const endScore = document.querySelector('.end-score');
+     const scorePanel = document.querySelectorAll('.panel');
+     endScore.appendChild(scorePanel);*/
+}
+
 function createGame() {
-    document.querySelector('.restart').addEventListener('click', createGame);
+    document.querySelector('.restart').addEventListener('click', createDeck);
     document.querySelector('.close-modal').addEventListener('click', restartGame);
     createDeck();
 }
 
 createGame();
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
