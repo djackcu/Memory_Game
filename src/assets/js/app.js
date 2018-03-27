@@ -71,7 +71,7 @@ const memoryGame = {
 };
 
 function clickOnCard(evt) {
-    let targetElement = false;
+    let targetElement;
     if (evt.target.nodeName.toLowerCase() === 'li') {
         targetElement = evt.target;
     } else if (evt.target.nodeName.toLowerCase() === 'i') {
@@ -83,7 +83,6 @@ function clickOnCard(evt) {
         switch (actionCard[0]) {
             case 'activated':
                 targetElement.classList.add('show');
-                console.log(actionCard);
                 break;
             case 'matched':
                 targetElement.classList.add('match');
@@ -91,45 +90,62 @@ function clickOnCard(evt) {
                 break;
             case 'deactivated':
                 targetElement.classList.add('show');
+                targetElement.classList.add('close');
+                document.getElementById(actionCard[1]).classList.add('close');
                 setTimeout(function closeCard() {
                     targetElement.classList.remove('show', 'open', 'close');
                     document.getElementById(actionCard[1]).classList.remove('show', 'open', 'close');
                 }, 1000);
-                targetElement.classList.add('close');
-                document.getElementById(actionCard[1]).classList.add('close');
                 break;
             default:
-                console.log(actionCard);
         }
         document.querySelector('.moves').textContent = memoryGame.moves;
         if (memoryGame.isEndGame()) {
             document.querySelector('.modal').classList.remove('hide');
             document.querySelector('.modal-back').classList.remove('hide');
+            clearInterval(timerId);
         }
     } else {
         console.log('no target');
     }
 }
 
-function restartGame() {
-    document.querySelector('.modal').classList.add('hide');
-    document.querySelector('.modal-back').classList.add('hide');
-    createGame();
-}
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+let startingTime,
+    endingTime,
+    timerId;
 
-function createGame() {
+function calculateTime() {
+    endingTime = performance.now();
+    let timeSec = Math.floor((endingTime - startingTime) / 1000);
+    let hours = Math.floor(timeSec / 3600);
+    let minutes = Math.floor((timeSec - (hours * 3600)) / 60);
+    let seconds = timeSec - (hours * 3600) - (minutes * 60);
+    if (hours < 10) { hours = "0" + hours; }
+    if (minutes < 10) { minutes = "0" + minutes; }
+    if (seconds < 10) { seconds = "0" + seconds; }
+    let time = `${hours}:${minutes}:${seconds}`;
+    return time;
+}
+
+function updateTime() {
+    let time = calculateTime();
+    document.querySelector('.time').textContent = time;
+}
+
+function createDeck() {
     const cardsDeck = document.createDocumentFragment();
     memoryGame.initGame();
     const newCardList = document.createElement('ul');
     newCardList.classList.add('deck');
     newCardList.addEventListener('click', clickOnCard);
-    for (var i = 0; i < memoryGame.arrayCards.length; i++) {
+    for (let i = 0; i < memoryGame.arrayCards.length; i++) {
         const newCard = document.createElement('li');
         newCard.classList.add('card');
         newCard.id = i;
@@ -142,10 +158,23 @@ function createGame() {
     let deck = document.querySelector('.deck');
     deck.parentNode.replaceChild(cardsDeck, deck);
     document.querySelector('.moves').textContent = memoryGame.moves;
-    document.querySelector('.restart').addEventListener('click', createGame);
-    document.querySelector('.close-modal').addEventListener('click', restartGame);
+    startingTime = performance.now();
+    timerId = setInterval(updateTime, 1000);
 }
 
+function restartGame() {
+    document.querySelector('.modal').classList.add('hide');
+    document.querySelector('.modal-back').classList.add('hide');
+    createDeck();
+}
+
+function createGame() {
+    document.querySelector('.restart').addEventListener('click', createGame);
+    document.querySelector('.close-modal').addEventListener('click', restartGame);
+    createDeck();
+}
+
+createGame();
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -156,5 +185,3 @@ function createGame() {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-createGame();
