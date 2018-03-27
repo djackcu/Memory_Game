@@ -8,6 +8,7 @@ const memoryGame = {
     solvedCards: [],
     nameCards: ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'],
     moves: 0,
+    stars: 3,
 
     initGame() {
         let newCards = [];
@@ -64,6 +65,14 @@ const memoryGame = {
             return ['deactivated', actCard];
         }
     },
+    checkScore() {
+        let score = (this.moves - 16) / 2;
+        this.stars = (score <= 3) ? 3 :
+            (score >= 6 && score < 9) ? 1 :
+            (score > 9) ? 0 :
+            2;
+    },
+
     //Check if the game is end, return true or false
     isEndGame() {
         return this.solvedCards.length == this.arrayCards.length;
@@ -99,7 +108,7 @@ function clickOnCard(evt) {
                 break;
             default:
         }
-        document.querySelector('.moves').textContent = memoryGame.moves;
+        updateScore();
         if (memoryGame.isEndGame()) {
             document.querySelector('.modal').classList.remove('hide');
             document.querySelector('.modal-back').classList.remove('hide');
@@ -109,13 +118,15 @@ function clickOnCard(evt) {
         console.log('no target');
     }
 }
-
+/*
+ * Update score
+ */
+function updateScore() {
+    document.querySelector('.moves').textContent = memoryGame.moves;
+}
 
 /*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
+ *   Display time
  */
 let startingTime,
     endingTime,
@@ -125,8 +136,8 @@ function calculateTime() {
     endingTime = performance.now();
     let timeSec = Math.floor((endingTime - startingTime) / 1000);
     let hours = Math.floor(timeSec / 3600);
-    let minutes = Math.floor((timeSec - (hours * 3600)) / 60);
-    let seconds = timeSec - (hours * 3600) - (minutes * 60);
+    let minutes = Math.floor((timeSec % 3600) / 60);
+    let seconds = timeSec % 3600 % 60;
     if (hours < 10) { hours = "0" + hours; }
     if (minutes < 10) { minutes = "0" + minutes; }
     if (seconds < 10) { seconds = "0" + seconds; }
@@ -139,6 +150,12 @@ function updateTime() {
     document.querySelector('.time').textContent = time;
 }
 
+/*
+ * Display the cards on the page
+ *   - shuffle the list of cards using the provided "shuffle" method below
+ *   - loop through each card and create its HTML
+ *   - add each card's HTML to the page
+ */
 function createDeck() {
     const cardsDeck = document.createDocumentFragment();
     memoryGame.initGame();
@@ -157,11 +174,13 @@ function createDeck() {
     cardsDeck.appendChild(newCardList)
     let deck = document.querySelector('.deck');
     deck.parentNode.replaceChild(cardsDeck, deck);
-    document.querySelector('.moves').textContent = memoryGame.moves;
+    updateScore();
     startingTime = performance.now();
     timerId = setInterval(updateTime, 1000);
 }
-
+/*
+ *   Start and restart game
+ */
 function restartGame() {
     document.querySelector('.modal').classList.add('hide');
     document.querySelector('.modal-back').classList.add('hide');
