@@ -119,7 +119,8 @@
     .modal {
         display: flex;
         justify-content: center;
-        flex-flow: row;
+        flex-flow: column;
+        align-items: center;
         position: fixed;
         padding: 32px;
         top: 300px;

@@ -210,9 +210,11 @@ function createDeck() {
 function restartGame() {
     document.querySelector('.modal').classList.add('hide');
     document.querySelector('.modal-back').classList.add('hide');
-    /* const panelScore = document.querySelector('.score-panel');
+    const panelScore = document.querySelector('.score-panel');
      const scorePanel = document.querySelectorAll('.panel');
-     panelScore.appendChild(scorePanel);*/
+     for(let elem of scorePanel){
+        panelScore.appendChild(elem);
+     }
     createDeck();
 }
 
@@ -220,9 +222,14 @@ function endGame() {
     clearInterval(timerId);
     document.querySelector('.modal').classList.remove('hide');
     document.querySelector('.modal-back').classList.remove('hide');
-    /* const endScore = document.querySelector('.end-score');
+    const endScore = document.querySelector('.end-score');
      const scorePanel = document.querySelectorAll('.panel');
-     endScore.appendChild(scorePanel);*/
+     console.log(scorePanel);
+     console.log(endScore);
+     for(let elem of scorePanel){
+        endScore.appendChild(elem);
+     }
+     /**/
 }
 
 function createGame() {
