@@ -89,28 +89,36 @@
  */
 
     .score-panel {
-        text-align: left;
-        width: 345px;
+        display: flex;
+        align-items:center;
+        text-align: center;
+        width: 660px;
         margin-bottom: 10px;
     }
 
-    .score-panel .stars,
+    .stars,
     .score {
-        margin: 0;
-        padding: 0;
+        padding: 10px;
         display: inline-block;
-        margin: 0 5px 0 0;
+        margin: 0 30px 0 0;
     }
 
-    .score-panel .stars li,
-    .score-panel .score li {
+    .stars li,
+    .score li {
         list-style: none;
         display: inline-block;
+    }
+    
+    .score li {
+        margin:0 30px;
     }
 
     .score-panel .restart {
         float: right;
         cursor: pointer;
+    }
+    .restart {
+        margin-right: 50px;
     }
     /*
 * Styles for end dialog
@@ -152,10 +160,11 @@
 
     .close-modal {
         text-align: center;
-        align-self: flex-end;
+        align-self: center;
         font-size: 1.2rem;
         height: 40px;
         width: 110px;
+        margin-top:50px;
         padding-top: 5px;
         background: #02b3e4;
         color: #2d3c49;

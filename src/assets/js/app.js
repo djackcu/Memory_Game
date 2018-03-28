@@ -210,6 +210,7 @@ function createDeck() {
 function restartGame() {
     document.querySelector('.modal').classList.add('hide');
     document.querySelector('.modal-back').classList.add('hide');
+    document.querySelector('.restart').classList.remove('hide');
     const panelScore = document.querySelector('.score-panel');
      const scorePanel = document.querySelectorAll('.panel');
      for(let elem of scorePanel){
@@ -222,6 +223,7 @@ function endGame() {
     clearInterval(timerId);
     document.querySelector('.modal').classList.remove('hide');
     document.querySelector('.modal-back').classList.remove('hide');
+    document.querySelector('.restart').classList.add('hide');
     const endScore = document.querySelector('.end-score');
      const scorePanel = document.querySelectorAll('.panel');
      console.log(scorePanel);
