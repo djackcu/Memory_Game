@@ -71,8 +71,17 @@
         cursor: default;
     }
 
+    @keyframes noWave {
+        0% {transform: rotate(0deg) translate(0px);}
+        25% {transform: rotate(-10deg) translate(-25px);}
+        50% {transform: rotate(10deg) translate(25px);}
+        75% {transform: rotate(-5deg) translate(-12px);}
+        100% {transform: rotate(0deg) translate(0px);}
+    }
+
     .deck .card.close {
         background: #f00;
+        animation: noWave 0.5s;
     }
 
     .deck .card.show {
@@ -90,7 +99,7 @@
 
     .score-panel {
         display: flex;
-        align-items:center;
+        align-items: center;
         text-align: center;
         width: 660px;
         margin-bottom: 10px;
@@ -108,15 +117,16 @@
         list-style: none;
         display: inline-block;
     }
-    
+
     .score li {
-        margin:0 30px;
+        margin: 0 30px;
     }
 
     .score-panel .restart {
         float: right;
         cursor: pointer;
     }
+
     .restart {
         margin-right: 50px;
     }
@@ -164,7 +174,7 @@
         font-size: 1.2rem;
         height: 40px;
         width: 110px;
-        margin-top:50px;
+        margin-top: 50px;
         padding-top: 5px;
         background: #02b3e4;
         color: #2d3c49;
