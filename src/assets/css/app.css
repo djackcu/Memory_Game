@@ -71,17 +71,8 @@
         cursor: default;
     }
 
-    @keyframes noWave {
-        0% {transform: rotate(0deg) translate(0px);}
-        25% {transform: rotate(-10deg) translate(-25px);}
-        50% {transform: rotate(10deg) translate(25px);}
-        75% {transform: rotate(-5deg) translate(-12px);}
-        100% {transform: rotate(0deg) translate(0px);}
-    }
-
     .deck .card.close {
         background: #f00;
-        animation: noWave 0.5s;
     }
 
     .deck .card.show {
