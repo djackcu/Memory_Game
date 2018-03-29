@@ -25,7 +25,8 @@ const memoryGame = {
         this.shuffleCards();
         this.moves = 0;
     },
-    // Shuffle function from http://stackoverflow.com/a/2450976
+
+// Shuffle function from http://stackoverflow.com/a/2450976
     shuffleCards() {
         let currentIndex = this.arrayCards.length,
             temporaryValue, randomIndex;
@@ -39,13 +40,13 @@ const memoryGame = {
         }
     },
 
-    /*
-     * Method to compare and return the keywords
-     * - 'disabled'(is already open or matched)
-     * - 'activated'(is the first element activate to match)
-     * - 'matched'(is matched with a previous card)
-     * - 'deactivated'(not match with a previous card)
-     */
+/*
+ * Method to compare and return the keywords
+ * - 'disabled'(is already open or matched)
+ * - 'activated'(is the first element activate to match)
+ * - 'matched'(is matched with a previous card)
+ * - 'deactivated'(not match with a previous card)
+ */
 
     playCard(cardId) {
         if (typeof(this.solvedCards.find(x => x == cardId)) != 'undefined' || this.activeCard == cardId) {
@@ -231,7 +232,6 @@ function endGame() {
      for(let elem of scorePanel){
         endScore.appendChild(elem);
      }
-     /**/
 }
 
 function createGame() {
@@ -239,5 +239,9 @@ function createGame() {
     document.querySelector('.close-modal').addEventListener('click', restartGame);
     createDeck();
 }
+
+/*
+ * Initialize game
+ */
 
 createGame();
