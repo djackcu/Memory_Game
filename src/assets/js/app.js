@@ -11,6 +11,7 @@ const memoryGame = {
     stars: 3,
 
     initGame() {
+        'use strict';
         let newCards = [];
         if (this.activeCard != -1) {
             this.activeCard = -1;
@@ -213,10 +214,10 @@ function restartGame() {
     document.querySelector('.modal-back').classList.add('hide');
     document.querySelector('.restart').classList.remove('hide');
     const panelScore = document.querySelector('.score-panel');
-     const scorePanel = document.querySelectorAll('.panel');
-     for(let elem of scorePanel){
+    const scorePanel = document.querySelectorAll('.panel');
+    for (let elem of scorePanel) {
         panelScore.appendChild(elem);
-     }
+    }
     createDeck();
 }
 
@@ -226,12 +227,12 @@ function endGame() {
     document.querySelector('.modal-back').classList.remove('hide');
     document.querySelector('.restart').classList.add('hide');
     const endScore = document.querySelector('.end-score');
-     const scorePanel = document.querySelectorAll('.panel');
-     console.log(scorePanel);
-     console.log(endScore);
-     for(let elem of scorePanel){
+    const scorePanel = document.querySelectorAll('.panel');
+    console.log(scorePanel);
+    console.log(endScore);
+    for (let elem of scorePanel) {
         endScore.appendChild(elem);
-     }
+    }
 }
 
 function createGame() {
