@@ -78,7 +78,7 @@ const memoryGame = {
             0;
     },
 
-    //Check if the game is end, return true or false
+//Check if the game is end, return true or false
 
     isEndGame() {
         return this.solvedCards.length == this.arrayCards.length;
@@ -146,7 +146,6 @@ function updateScore() {
     for (var i = 0; i < memoryGame.stars; i++) {
         starsScore[i].classList.replace('fa-star-o', 'fa-star');
     }
-
 }
 
 /*
@@ -228,8 +227,6 @@ function endGame() {
     document.querySelector('.restart').classList.add('hide');
     const endScore = document.querySelector('.end-score');
     const scorePanel = document.querySelectorAll('.panel');
-    console.log(scorePanel);
-    console.log(endScore);
     for (let elem of scorePanel) {
         endScore.appendChild(elem);
     }
