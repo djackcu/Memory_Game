@@ -1,14 +1,14 @@
-#Memory Game
+# Memory Game
 
-##Table of content
-*Descriptions
-*Instructions
-*Contributing
+## Table of content
+* Descriptions
+* Instructions
+* Contributing
 
-###Description
+### Description
 Memory Game made in vainilla javascript, html and css.
 
-###Instructions 
+### Instructions 
 The player need to pair the cards, with one scoreboard to show time and moves.The game finish when all your card are pair
 
 ##### Contributing
