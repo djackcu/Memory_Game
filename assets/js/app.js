@@ -71,10 +71,10 @@ const memoryGame = {
     },
 
     checkScore() {
-        let score = (this.moves - 16) / 2;
-        this.stars = (score <= 3) ? 3 :
-            (score > 3 && score <= 6) ? 2 :
-            (score > 6 && score <= 9) ? 1 :
+        let errorCard = (this.moves - 16) / 2;
+        this.stars = (errorCard <= 6) ? 3 :
+            (errorCard > 6 && errorCard <= 9) ? 2 :
+            (errorCard > 9 && errorCard <= 12) ? 1 :
             0;
     },
 
