@@ -22,7 +22,8 @@
         font-family: 'Coda', cursive;
     }
 
-    .container {
+    .container,
+    .modal-back {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -37,16 +38,16 @@
  * Styles for the deck of cards
  */
 
-    .deck {        
+    .deck {
         background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
         margin: 0 0 3em;
-        width: 660px;
-        min-height: 680px;        
-        padding: 32px;
+        width: 320px;
+        min-height: 320px;
+        padding: 12px;
         border-radius: 10px;
         box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
     }
@@ -54,13 +55,13 @@
     .deck .card {
         background: #2e3d49;
         font-size: 0;
-        color: #ffffff;        
+        color: #ffffff;
         cursor: pointer;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 125px;
-        width: 125px;
+        height: 60px;
+        width: 60px;
         border-radius: 8px;
         box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
     }
@@ -92,35 +93,62 @@
         display: flex;
         align-items: center;
         text-align: center;
-        width: 660px;
+        justify-content: space-between;
+        width: 310px;
         margin-bottom: 10px;
+        font-size: 1.2rem;
     }
 
-    .stars,
-    .score {
-        padding: 10px;
-        display: inline-block;
-        margin: 0 30px 0 0;
-        text-align: center;
+    .score-panel ul {
+        padding: 5px;
+        display: flex;
+        margin: 0 10px 0 0;
+        justify-content: center;
     }
 
     .stars li,
     .score li {
         list-style: none;
-        display: inline-block;
+        margin-left: 5px;
     }
 
     .score li {
-        margin: 0 30px;
+        display: flex;
+        flex-direction: column;
     }
 
-    .score-panel .restart {
-        float: right;
-        cursor: pointer;
+    .end-score ul {
+        padding-left: 0;
+        justify-content: center;
+    }
+
+    .end-score .score li {
+        flex-direction: row;
+        margin-top: 5px;
+        justify-content: space-between;
+    }
+
+    .stars li {
+        display: inline-block;
+        color: #fedd31;
+    }
+
+    .score-time {
+        width: 80px;
+    }
+
+    .end-score .score-time {
+        width: 150px;
     }
 
     .restart {
-        margin-right: 50px;
+        margin-right: 10px;
+        color: #fff;
+        font-size: 20px;
+        padding-top: 10px;
+        border-radius: 5px;
+        width: 50px;
+        height: 50px;
     }
     /*
 * Styles for end dialog
@@ -131,6 +159,7 @@
         justify-content: center;
         flex-flow: column;
         align-items: center;
+        text-align: center;
         z-index: 100;
         background: #fff;
         position: fixed;
@@ -138,14 +167,13 @@
         top: 10%;
         margin: 0 auto;
         width: 310px;
-        max-width: 100%;
         height: 400px;
-        max-height: 100%;        
         box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
         border-radius: 5px;
     }
 
-    .end-score {
+    .end-score,
+    .end-score .score {
         display: flex;
         flex-flow: column;
     }
@@ -164,60 +192,40 @@
         background: rgba(0, 0, 0, 0.6);
     }
 
-    .close-modal {
+    .close-modal,
+    .restart {
         text-align: center;
         align-self: center;
         background: #02b3e4;
-        color: #2d3c49;
         cursor: pointer;
         font-size: 1.2rem;
+    }
+
+    .close-modal {
+        color: #2d3c49;
         height: 40px;
         width: 110px;
         margin-top: 50px;
-        padding-top: 5px;        
-        border-radius: 5px;        
+        padding-top: 5px;
+        border-radius: 5px;
     }
 
-   /* @media screen and (min-width: 769px) {
+    @media screen and (min-width: 769px) {
         .deck {
             width: 660px;
             min-height: 680px;
             padding: 32px;
-            border-radius: 10px;
-            box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
             margin: 0 0 3em;
         }
 
         .deck .card {
             height: 125px;
             width: 125px;
-            font-size: 0;
-            border-radius: 8px;
-            box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
-        }        
+        }
         .modal {
             position: fixed;
-            padding: 32px;
             top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 310px;
-            max-width: 100%;
-            height: 400px;
-            max-height: 100%;
-            box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
-            border-radius: 5px;
-        }
-        .score-panel {
             width: 660px;
-            margin-bottom: 10px;
+            height: 400px;
         }
-        /*.close-modal {
-            font-size: 1.2rem;
-            height: 40px;
-            width: 110px;
-            margin-top: 50px;
-            padding-top: 5px;
-            border-radius: 5px;
-        }*//*
-    }*/
+    }

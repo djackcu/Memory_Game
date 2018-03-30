@@ -26,8 +26,8 @@
                 <li><i class="fa fa-star-o"></i></li>
             </ul>
             <ul class="score scores">
-                <li>Moves: <span class="moves">0</span></li>
-                <li> Time: <span class="time">00:00:00</span></li>
+                <li class="score-moves"><span> Moves </span><span class="moves">0</span></li>
+                <li class="score-time"><span> Time </span><span class="time">00:00:00</span></li>
             </ul>
         </section>
         <ul class="deck">
@@ -81,11 +81,12 @@
             </li>
         </ul>
     </div>
-    <div class="modal-back hide"></div>
-    <div class="modal hide" id="modal">
-        <h1>Congratulations, you win!!</h1>
-        <div class="end-score"></div>
-        <div class="close-modal">Play again!</i>
+    <div class="modal-back hide">
+        <div class="modal" id="modal">
+            <h1>Congratulations, you win!!</h1>
+            <div class="end-score"></div>
+            <div class="close-modal">Play again!
+            </div>
         </div>
     </div>
     <script src="assets/js/app.js"></script>
