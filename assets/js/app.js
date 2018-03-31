@@ -219,7 +219,7 @@ function createDeck() {
     deck.parentNode.replaceChild(cardsDeck, deck);
     updateScore();
     startingTime = performance.now();
-    timerId = window.setInterval(updateTime, 1000);
+    timerId = setInterval(updateTime, 1000);
 }
 
 /*
@@ -238,9 +238,10 @@ function restartGame() {
 }
 
 function endGame() {
-    window.clearInterval(timerId);
+    clearInterval(timerId);
     document.querySelector('.modal-back').classList.remove('hide');
     document.querySelector('.restart').classList.add('hide');
+    memoryGame.isPlay = false;
     const endScore = document.querySelector('.end-score');
     const scorePanel = document.querySelectorAll('.scores');
     for (let elem of scorePanel) {
