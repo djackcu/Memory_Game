@@ -9,6 +9,7 @@ const memoryGame = {
     nameCards: ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'],
     moves: 0,
     stars: 3,
+    isPlay: false,
 
     initGame() {
         'use strict';
@@ -50,22 +51,24 @@ const memoryGame = {
      */
 
     playCard(cardId) {
-        if (typeof(this.solvedCards.find(x => x == cardId)) != 'undefined' || this.activeCard == cardId) {
+        if (typeof(this.solvedCards.find(x => x == cardId)) != 'undefined' || this.activeCard == cardId || this.isPlay) {
             return ['disabled'];
         } else if (this.activeCard == -1) {
-            let actCard = this.activeCard = cardId;
+            this.activeCard = cardId;
             this.moves++;
-            return ['activated', actCard];
+            return ['activated', this.activeCard];
         } else if (this.arrayCards[this.activeCard] == this.arrayCards[cardId]) {
             this.solvedCards.push(this.activeCard, cardId);
             let actCard = this.activeCard;
             this.activeCard = -1;
             this.moves++;
+            this.isPlay = true;
             return ['matched', actCard];
         } else {
             let actCard = this.activeCard;
             this.activeCard = -1;
             this.moves++;
+            this.isPlay = true;
             return ['deactivated', actCard];
         }
     },
@@ -104,23 +107,21 @@ function clickOnCard(evt) {
     }
     if (targetElement) {
         let actionCard = memoryGame.playCard(targetElement.id);
-        targetElement.classList.add('open');
+        let secondElem;
+        if (!memoryGame.isPlay) {
+            targetElement.classList.add('open');
+            targetElement.classList.add('show');
+        }
         switch (actionCard[0]) {
             case 'activated':
-                targetElement.classList.add('show');
                 break;
             case 'matched':
-                targetElement.classList.add('match');
-                document.getElementById(actionCard[1]).classList.replace('show', 'match');
+                secondElem = document.getElementById(actionCard[1]);
+                matchedCard(targetElement, secondElem);
                 break;
             case 'deactivated':
-                targetElement.classList.add('show');
-                targetElement.classList.add('close');
-                document.getElementById(actionCard[1]).classList.add('close');
-                setTimeout(function closeCard() {
-                    targetElement.classList.remove('show', 'open', 'close');
-                    document.getElementById(actionCard[1]).classList.remove('show', 'open', 'close');
-                }, 1000);
+                secondElem = document.getElementById(actionCard[1]);
+                deactivatedCard(targetElement, secondElem);
                 break;
             default:
         }
@@ -129,6 +130,24 @@ function clickOnCard(evt) {
             endGame();
         }
     }
+}
+
+function matchedCard(firstElem, secondElem) {
+    firstElem.classList.remove('show', 'open');
+    secondElem.classList.remove('show', 'open');
+    firstElem.classList.add('match');
+    secondElem.classList.add('match');
+    memoryGame.isPlay = false;
+}
+
+function deactivatedCard(firstElem, secondElem) {
+    firstElem.classList.add('close');
+    secondElem.classList.add('close');
+    setTimeout(function closeCard() {
+        firstElem.classList.remove('show', 'open', 'close');
+        secondElem.classList.remove('show', 'open', 'close');
+        memoryGame.isPlay = false;
+    }, 500);
 }
 
 /*
@@ -200,7 +219,7 @@ function createDeck() {
     deck.parentNode.replaceChild(cardsDeck, deck);
     updateScore();
     startingTime = performance.now();
-    timerId = setInterval(updateTime, 1000);
+    timerId = window.setInterval(updateTime, 1000);
 }
 
 /*
@@ -219,7 +238,7 @@ function restartGame() {
 }
 
 function endGame() {
-    clearInterval(timerId);
+    window.clearInterval(timerId);
     document.querySelector('.modal-back').classList.remove('hide');
     document.querySelector('.restart').classList.add('hide');
     const endScore = document.querySelector('.end-score');

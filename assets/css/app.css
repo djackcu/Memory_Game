@@ -74,6 +74,8 @@
 
     .deck .card.close {
         background: #f00;
+        cursor: default;
+        font-size: 33px;
     }
 
     .deck .card.show {
@@ -196,7 +198,7 @@
         text-align: center;
         align-self: center;
         background: #02b3e4;
-        cursor: pointer;        
+        cursor: pointer;
         color: #fff;
     }
 
