@@ -1,4 +1,4 @@
-# Memory Game <iframe src="http://ghbtns.com/github-btn.html?user=user&repo=github-buttons&type=watch" allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
+# Memory Game
 
 ## Table of content
 * [Descriptions](#description)
@@ -37,23 +37,23 @@ and open the file index.html
 * [CSS3](https://www.w3.org/TR/css3-roadmap/)
 
 ### Code description
-_memoryGame_ is a object that contain array of cards moves and stars, and methods to initialize and shuffle cards, logic to play cards and track the score
-_memoryGame.clickOnCard_ is an event listener to show and activate cards, match cards (_calling matchedCard()_),deactivate cards (_calling deactivatedCard()_), update the score(_calling updateScore()_) and end game(_calling endGame_).
+**_memoryGame_** is a object that contain array of cards moves and stars, and methods to initialize and shuffle cards, logic to play cards and track the score
+**_memoryGame.clickOnCard_** is an event listener to show and activate cards, match cards (**_calling matchedCard()_**),deactivate cards (**_calling deactivatedCard()_**), update the score(**_calling updateScore()_**) and end game(**_calling endGame_**).
 
-_calculateTime()_ and _updateTime()_  are executed every second to show the time.
+**_calculateTime()_** and **_updateTime()_**  are executed every second to show the time.
 
-_createDeck()_  create the stock of card.
+**_createDeck()_**  create the stock of card.
 
-_restartGame()_ and _backToGame()_ restart the game.
+**_restartGame()_** and **_backToGame()_** restart the game.
 
-_createGame()_ and _endGame()_ initialize and end the game.
+**_createGame()_** and **_endGame()_** initialize and end the game.
 
 ### Contributing
 This repository is one of the project of _Udacity's Nanodegree_. Therefore, we most likely will not accept pull requests. 
 
 ## Authors
 
-* **Dieter Jackson**
+**Dieter Jackson**
 
 ## License
 
