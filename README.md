@@ -58,7 +58,3 @@ This repository is one of the project of _Udacity's Nanodegree_. Therefore, we m
 ## Authors
 
 **Dieter Jackson**
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
