@@ -75,8 +75,8 @@ const memoryGame = {
 
     checkScore() {
         let errorCard = (this.moves - 16) / 2;
-        this.stars = (errorCard <= 6) ? 3 :
-            (errorCard > 6 && errorCard <= 9) ? 2 :
+        this.stars = (errorCard <= 4) ? 3 :
+            (errorCard > 4 && errorCard <= 8) ? 2 :
             1;
     },
 
@@ -167,7 +167,7 @@ function updateScore() {
 }
 
 /*
- *   Display time
+ *   Calculate and display time in HH:MM:SS
  */
 
 let startingTime,
@@ -225,7 +225,7 @@ function createDeck() {
 /*
  *   Start, end and restart game
  */
-function restartGame (){
+function restartGame() {
     clearInterval(timerId);
     createDeck();
 }
