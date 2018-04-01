@@ -4,7 +4,7 @@
 * [Descriptions](#description)
 * [Instructions](#instructions)
 * [Contributing](#contributing)
-* [Getting started](#getting)
+* [Getting started](#getting-started)
 
 ### Description
 This Memory Game is a project made in pure javascript, html and css.It is a Project for practice web front-end skills in the _Udacity Front-End Nanodegree_.
