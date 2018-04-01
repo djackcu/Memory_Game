@@ -225,8 +225,12 @@ function createDeck() {
 /*
  *   Start, end and restart game
  */
+function restartGame (){
+    clearInterval(timerId);
+    createDeck();
+}
 
-function restartGame() {
+function backToGame() {
     document.querySelector('.modal-back').classList.add('hide');
     document.querySelector('.restart').classList.remove('hide');
     const panelScore = document.querySelector('.score-panel');
@@ -250,8 +254,8 @@ function endGame() {
 }
 
 function createGame() {
-    document.querySelector('.restart').addEventListener('click', createDeck);
-    document.querySelector('.close-modal').addEventListener('click', restartGame);
+    document.querySelector('.restart').addEventListener('click', restartGame);//here
+    document.querySelector('.close-modal').addEventListener('click', backToGame);
     createDeck();
 }
 
