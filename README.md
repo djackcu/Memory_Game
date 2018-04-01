@@ -34,7 +34,7 @@ $ git clone https://github.com/djackcu/Memory_Game.git
 $ cd Memory_Game
 ```
 
-and open the file index.html 
+and open the file _index.html_
 ### Build width
 * [JavaScript](https://www.javascript.com/)
 * [HTML5](https://www.w3.org/TR/html5/)
