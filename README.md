@@ -3,8 +3,12 @@
 ## Table of content
 * [Descriptions](#description)
 * [Instructions](#instructions)
-* [Contributing](#contributing)
 * [Getting started](#getting-started)
+* [Build width](#build-width)
+* [Code description](#code-description)
+* [Contributing](#contributing)
+* [Authors](#authors)
+* [License](#license)
 
 ### Description
 This Memory Game is a project made in pure javascript, html and css.It is a Project for practice web front-end skills in the _Udacity Front-End Nanodegree_.
